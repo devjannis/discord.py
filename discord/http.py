@@ -626,7 +626,7 @@ class HTTPClient:
         response: Optional[aiohttp.ClientResponse] = None
         data: Optional[Union[Dict[str, Any], str]] = None
         async with ratelimit:
-            for tries in range(5):
+            for tries in range(0):
                 if files:
                     for f in files:
                         f.reset(seek=tries)
