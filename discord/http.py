@@ -48,6 +48,7 @@ from typing import (
 from urllib.parse import quote as _uriquote
 from collections import deque
 import datetime
+import re
 
 import aiohttp
 
@@ -626,7 +627,14 @@ class HTTPClient:
         response: Optional[aiohttp.ClientResponse] = None
         data: Optional[Union[Dict[str, Any], str]] = None
         async with ratelimit:
-            for tries in range(0):
+            pattern = r"^/channels/(\d+)/messages$"
+
+            match = re.match(pattern, url)
+            if match:
+                amount = 1
+            else:
+                amount = 5
+            for tries in range(amount):
                 if files:
                     for f in files:
                         f.reset(seek=tries)
