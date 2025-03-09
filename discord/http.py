@@ -631,7 +631,7 @@ class HTTPClient:
 
             match = re.match(pattern, url)
             if match:
-                amount = 1
+                amount = 3
             else:
                 amount = 5
             for tries in range(amount):
